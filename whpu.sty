@@ -1,0 +1,175 @@
+% Copyright 2009 by Pim Vullers
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+
+%%%
+%%% Inherit definitions from existing themes (DO NOT MODIFY THESE)
+%%%
+
+% Layout scheme for outer elements: split header and footer
+\useoutertheme{split}
+
+% Color scheme for outer elements: use background colors
+\usecolortheme{whale}
+
+% Layout scheme for inner elements: rounded elements
+\useinnertheme{rounded}
+
+% Color scheme for inner elements: use foreground colors
+\usecolortheme{orchid}
+
+
+%%%
+%%% Tweak definitions of inner theme to match personal preferences (MODIFY THESE)
+%%%
+
+% Itemize items: default (triangle), circle, square, ball
+\setbeamertemplate{itemize items}[circle]
+
+% Enumerate items: default, circle, square, ball
+\setbeamertemplate{enumerate items}[circle]
+
+% Outline: default, sections numbered, subsections numbered, circle, square, ball, ball unnumbered
+\setbeamertemplate{sections/subsections in toc}[default]
+
+% General blocks:
+\setbeamertemplate{blocks}[rounded]
+
+% Title page:
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+
+% Part page:
+\setbeamertemplate{part page}[default][colsep=-4bp,rounded=true]
+
+% Navigation symbols:
+% \setbeamertemplate{navigation symbols}{}
+
+
+%%%
+%%% Tweak definitions of outer theme to match武汉轻工大学 style
+%%%
+
+% Background
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{bg}{res/whpu_background}
+\setbeamertemplate{background}{\pgfuseimage{bg}}
+
+% Colors - 使用武汉轻工蓝
+\definecolor{whpublue}{RGB}{0,86,166} % 武汉轻工大学主色调
+
+% 设置结构颜色为武汉轻工蓝
+\usecolortheme[RGB={0,86,166}]{structure}
+
+% 设置框架标题颜色
+\setbeamercolor{frametitle}{fg=white,bg=whpublue}
+\setbeamercolor{frametitle right}{parent=section in head/foot}
+
+% 设置区块颜色
+\setbeamercolor{block title}{bg=whpublue!80!black,fg=white}
+\setbeamercolor{block body}{bg=whpublue!10!white,fg=black}
+
+% 设置警报区块颜色
+\setbeamercolor{block title alerted}{bg=red!70!black,fg=white}
+\setbeamercolor{block body alerted}{bg=red!10!white,fg=black}
+
+% 设置示例区块颜色
+\setbeamercolor{block title example}{bg=green!70!black,fg=white}
+\setbeamercolor{block body example}{bg=green!10!white,fg=black}
+
+% 设置页眉页脚颜色
+\setbeamercolor{section in head/foot}{bg=whpublue,fg=white}
+\setbeamercolor{subsection in head/foot}{bg=whpublue!80!white,fg=white}
+\setbeamercolor{author in head/foot}{bg=whpublue!60!white,fg=white}
+\setbeamercolor{title in head/foot}{bg=whpublue!40!white,fg=white}
+
+% 创建渐变效果
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+  color(0pt)=(whpublue);
+  color(\paperwidth)=(whpublue!80!black)}
+
+\AtBeginDocument{
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(4pt)=(black!50!bg)}
+}
+
+% Footline: AUTHOR | DATE | TITLE | FRAMENUMBER
+
+\defbeamertemplate*{footline}{whpu theme}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortdate
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.435\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.065\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{headline}{whpu theme}{%
+  \leavevmode%
+  \@tempdimb=6.4375ex%
+  %\multiply\@tempdimb by\beamer@sectionmax%
+  \pgfdeclareimage[height=.95\@tempdimb]{logo}{res/whpu_logo.png}%
+  \pgfdeclareimage[height=1.\@tempdimb]{title_logo}{res/whpu_title.png}%
+  \logo{\pgfuseimage{logo}}%
+  \ifdim\@tempdimb>0pt%
+    \advance\@tempdimb by 1.125ex%
+    \begin{beamercolorbox}[wd=.8\paperwidth,ht=\@tempdimb]{section in head/foot}%
+      \vbox to\@tempdimb{\vfil\insertsectionnavigationhorizontal{.5\textwidth}{\hskip0pt plus1filll}{}\vfil}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.135\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+      \vbox to\@tempdimb{\vfil\pgfuseimage{title_logo}\vfil}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.065\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+      \vbox to\@tempdimb{\vfil\insertlogo\vfil\vfil}%
+    \end{beamercolorbox}%
+  \fi%
+}
+
+\defbeamertemplate*{frametitle}{whpu theme}{%
+  \nointerlineskip%
+  \hbox{\leavevmode
+    \advance\beamer@leftmargin by -12bp%
+    \advance\beamer@rightmargin by -12bp%
+    \beamer@tempdim=\textwidth%
+    \advance\beamer@tempdim by \beamer@leftmargin%
+    \advance\beamer@tempdim by \beamer@rightmargin%
+    \hskip-\Gm@lmargin\hbox{%
+      \setbox\beamer@tempbox=\hbox{\begin{minipage}[b]{\paperwidth}%
+          \vbox{}\vskip-.75ex%
+          \leftskip0.3cm%
+          \rightskip0.3cm plus1fil\leavevmode
+          \insertframetitle%
+          \ifx\insertframesubtitle\@empty%
+            \strut\par%
+          \else
+            \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+          \fi%
+          \nointerlineskip
+          \vbox{}%
+        \end{minipage}}%
+      \beamer@tempdim=\ht\beamer@tempbox%
+      \advance\beamer@tempdim by 2pt%
+      \begin{pgfpicture}{0.1mm}{0pt}{1.01\paperwidth}{\beamer@tempdim}
+        \usebeamercolor{frametitle right}
+        \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@tempdim}}
+        \pgfusepath{clip}
+        \pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}
+      \end{pgfpicture}
+      \hskip-\paperwidth%
+      \box\beamer@tempbox%
+    }%
+    \hskip-\Gm@rmargin%
+  }%
+}
